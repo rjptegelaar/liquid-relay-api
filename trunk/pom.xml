@@ -6,9 +6,9 @@
 	
 	
 		<scm>
-		<connection>scm:svn:http://pnetserver/svn/pte/liquid/RelayApi/trunk</connection>
-		<developerConnection>scm:svn:http://pnetserver/svn/pte/liquid/RelayApi/trunk</developerConnection>
-		<url>http://pnetserver/svn/pte/liquid/RelayApi/trunk</url>
+		<connection>scm:svn:https://liquid-relay-api.googlecode.com/svn/trunk/</connection>
+		<developerConnection>scm:svn:https://liquid-relay-api.googlecode.com/svn/trunk/</developerConnection>
+		<url>https://liquid-relay-api.googlecode.com/svn/trunk/</url>
 	</scm>
 	<build>
 		<plugins>
@@ -26,7 +26,7 @@
   	                    <autoVersionSubmodules>true</autoVersionSubmodules>  	                    
   	                    <remoteTagging>true</remoteTagging>
   	                    <resume>false</resume>  	                    
-  	                    <tagBase>http://pnetserver/svn/pte/liquid/RelayApi/tags/</tagBase>  	                    
+  	                    <tagBase>https://liquid-relay-api.googlecode.com/svn/tags/</tagBase>  	                    
  	                </configuration>
 			</plugin>
 			<plugin>
