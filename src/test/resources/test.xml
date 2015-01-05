@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Message>
+	<Header value="tester" key="test" />
+	<Header value="daar" key="Hallo" />
+	<ID>c1236017-a18c-410d-9eb4-61a92082725c</ID>
+	<Part label="test">
+		<Content>Hallo hallo</Content>
+	</Part>
+	<Part label="test1">
+		<Content>&lt;test&gt;&lt;/test&gt;</Content>
+	</Part>
+	<SnapshotTime>2013-09-29T18:27:41.848+02:00</SnapshotTime>
+	<Location>TestLocation</Location>
+</Message>
