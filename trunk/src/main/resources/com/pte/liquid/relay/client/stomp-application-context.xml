@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:amq="http://activemq.apache.org/schema/core" xmlns:jms="http://www.springframework.org/schema/jms"
+	xmlns:task="http://www.springframework.org/schema/task"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+							http://www.springframework.org/schema/beans/spring-beans.xsd 
+							http://activemq.apache.org/schema/core 
+                           	http://activemq.apache.org/schema/core/activemq-core.xsd 
+                           	http://www.springframework.org/schema/jms 
+                           	http://www.springframework.org/schema/jms/spring-jms.xsd
+                           	http://www.springframework.org/schema/context
+                           	http://www.springframework.org/schema/context/spring-context.xsd
+                           	http://www.springframework.org/schema/task 
+                           	http://www.springframework.org/schema/task/spring-task-3.0.xsd">
+
+	<context:component-scan base-package="com.pte.liquid.relay" />
+
+	<bean id="propertyConfigurer"
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="ignoreResourceNotFound" value="true"/>
+		<property name="location">
+			<value>relay.properties</value>
+		</property>
+	</bean>
+
+	<task:annotation-driven executor="relayApiTransportExecutor" />
+	<task:executor id="relayApiTransportExecutor" pool-size="5" />
+
+	
+	<bean id="relayApiStompTransport" class="com.pte.liquid.relay.client.stomp.StompTransport">
+		<property name="marshaller" ref="relayApiMarshaller"></property>
+		<property name="hostname" value="${relay_stomp_hostname:localhost}"></property>
+		<property name="port" value="${relay_stomp_port:33555}"></property>
+		<property name="destination" value="${relay_destination:com.pte.liquid.relay.in}"></property>
+	</bean>
+
+</beans>
