@@ -35,7 +35,7 @@ public class XmlMarshaller implements Marshaller{
 			logger.error(e.getMessage());
 			throw new RelayException(e);
 		}
-		
+		logger.info("3: " + sw.toString());
 		logger.debug("Done marshalling");
 		return sw.toString();
 	}
@@ -48,6 +48,7 @@ public class XmlMarshaller implements Marshaller{
 		Message msg;
 		try {
 			msg = (Message) unmarshaller.unmarshal(new StreamSource(sr));
+			logger.info("4: " + message);
 			return msg;	
 		} catch (XmlMappingException e) {
 			logger.error(e.getMessage());
