@@ -13,6 +13,8 @@
 //limitations under the License.
 package com.pte.liquid.relay.client.jms;
 
+import java.util.Properties;
+
 import javax.jms.JMSException;
 import javax.jms.Session;
 
@@ -29,9 +31,11 @@ import com.pte.liquid.relay.model.Message;
 public class JmsTransport implements Transport {
 	
 	
+	private static final String RELAY_DESTINATION = "relay_destination";
 	private JmsTemplate template;	
 	private Marshaller marshaller;
 	private final static Logger logger = Logger.getLogger(JmsTransport.class);
+	private String destination;
 	
 	
 	@Override
@@ -40,11 +44,19 @@ public class JmsTransport implements Transport {
 		logger.debug("Getting trigger to send");										
 		final String Stringcontent = marshaller.marshal(msg);
 		
-		template.send(new MessageCreator() {
-            public javax.jms.Message createMessage(Session session) throws JMSException {
-                return session.createTextMessage(Stringcontent);
-              }
-          });	
+		if(destination!=null && !"".equals(destination)){
+			template.send(destination, new MessageCreator() {
+	            public javax.jms.Message createMessage(Session session) throws JMSException {
+	                return session.createTextMessage(Stringcontent);
+	              }
+	          });
+		}else{
+			template.send(new MessageCreator() {
+	            public javax.jms.Message createMessage(Session session) throws JMSException {
+	                return session.createTextMessage(Stringcontent);
+	              }
+	          });				
+		}
 		
 		logger.debug("Done sending");
 	}
@@ -64,6 +76,13 @@ public class JmsTransport implements Transport {
 	@Override
 	public void setMarshaller(Marshaller marshaller) {
 			this.marshaller = marshaller;
+	}
+
+	@Override
+	public void setProperties(Properties properties) {
+		if(properties!=null && properties.getProperty(RELAY_DESTINATION)!=null && !"".equals(properties.getProperty(RELAY_DESTINATION))){
+			destination = properties.getProperty(RELAY_DESTINATION);
+		}		
 	}
 
 
