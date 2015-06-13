@@ -2,14 +2,15 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.pte.liquid.relay</groupId>
 	<artifactId>RelayApi</artifactId>
-	<version>0.1.2-SNAPSHOT</version>
+	<version>0.1.2</version>
 	
 	
 		<scm>
 		<connection>scm:git:https://github.com/rjptegelaar/liquid-relay-api.git</connection>
 		<developerConnection>scm:git:git@github.com:rjptegelaar/liquid-relay-api.git</developerConnection>
 		<url>https://github.com/rjptegelaar/liquid-relay-api.git/</url>
-	</scm>
+	  <tag>RelayApi-0.1.2</tag>
+  </scm>
 	<build>
 		<plugins>
 			<plugin>
