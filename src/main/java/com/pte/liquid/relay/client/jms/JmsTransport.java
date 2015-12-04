@@ -44,6 +44,7 @@ public class JmsTransport implements Transport {
 		logger.debug("Getting trigger to send");										
 		final String Stringcontent = marshaller.marshal(msg);
 		
+		
 		if(destination!=null && !"".equals(destination)){
 			template.send(destination, new MessageCreator() {
 	            public javax.jms.Message createMessage(Session session) throws JMSException {

@@ -62,19 +62,19 @@ public class StompTransport implements Transport {
 					+ destination, Stringcontent));
 			client.disconnect();
 		} catch (IOException e) {
-			logger.error(e.getMessage());
+			logger.debug(e.getMessage());
 			throw new RelayException(e);
 		} catch (URISyntaxException e) {
-			logger.error(e.getMessage());
+			logger.debug(e.getMessage());
 			throw new RelayException(e);
 		} catch (InterruptedException e) {
-			logger.error(e.getMessage());
+			logger.debug(e.getMessage());
 			throw new RelayException(e);
 		} catch (TimeoutException e) {
-			logger.error(e.getMessage());
+			logger.debug(e.getMessage());
 			throw new RelayException(e);
 		} catch (StompException e) {
-			logger.error(e.getMessage());
+			logger.debug(e.getMessage());
 			throw new RelayException(e);
 		}
 
