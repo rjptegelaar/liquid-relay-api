@@ -14,7 +14,6 @@
 package com.pte.liquid.relay.client.stomp;
 
 import java.io.IOException;
-
 import java.net.URISyntaxException;
 import java.util.Properties;
 import java.util.concurrent.TimeoutException;
