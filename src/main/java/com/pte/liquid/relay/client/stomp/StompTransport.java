@@ -130,4 +130,19 @@ public class StompTransport implements Transport {
 		
 	}
 
+	@Override
+	public void destroy() {
+		logger.info("Destroying Stomp transport");		
+		if(client!=null){
+			try {
+				client.disconnect();
+			} catch (Exception e) {
+				if(logger.isDebugEnabled()){
+					e.printStackTrace();	
+				}				
+			}
+		}
+		
+	}
+
 }

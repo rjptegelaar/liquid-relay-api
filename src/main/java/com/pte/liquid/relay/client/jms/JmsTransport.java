@@ -86,6 +86,11 @@ public class JmsTransport implements Transport {
 		}		
 	}
 
+	@Override
+	public void destroy() {
+		logger.info("Destroying JMS transport");				
+	}
+
 
 	
 	
