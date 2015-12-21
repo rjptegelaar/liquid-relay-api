@@ -128,8 +128,20 @@
 		<dependency>
 			<groupId>org.projectodd.stilts</groupId>
 			<artifactId>stilts-stomp-client</artifactId>
+			<exclusions>
+				<exclusion>
+					<artifactId>jboss-logging</artifactId>
+					<groupId>org.jboss.logging</groupId>
+				</exclusion>
+			</exclusions>
 		</dependency>
-
+		
+		<!-- JBOSS -->
+		<dependency>
+			<groupId>org.jboss.logging</groupId>
+			<artifactId>jboss-logging</artifactId>
+			<version>3.3.0.Final</version>
+		</dependency>
 	</dependencies>
 
 

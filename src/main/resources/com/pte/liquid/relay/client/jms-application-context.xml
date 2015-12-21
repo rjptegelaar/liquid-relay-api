@@ -52,7 +52,7 @@
 		<property name="defaultDestinationName" value="${relay_destination:com.pte.liquid.relay.in}"></property>
 	</bean>
 
-	<bean id="relayApiJmsTransport" class="com.pte.liquid.relay.client.jms.JmsTransport">
+	<bean id="relayApiJmsTransport" class="com.pte.liquid.relay.client.jms.JmsTransport" scope="singleton" destroy-method="destroy">
 		<property name="template" ref="relayApiJmsTemplate"></property>
 		<property name="marshaller" ref="relayApiMarshaller"></property>
 	</bean>

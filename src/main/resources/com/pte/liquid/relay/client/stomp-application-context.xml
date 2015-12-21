@@ -28,7 +28,7 @@
 	<task:executor id="relayApiTransportExecutor" pool-size="5" />
 
 	
-	<bean id="relayApiStompTransport" class="com.pte.liquid.relay.client.stomp.StompTransport">
+	<bean id="relayApiStompTransport" class="com.pte.liquid.relay.client.stomp.StompTransport" scope="singleton" destroy-method="destroy">
 		<property name="marshaller" ref="relayApiMarshaller"></property>
 		<property name="hostname" value="${relay_stomp_hostname:localhost}"></property>
 		<property name="port" value="${relay_stomp_port:33555}"></property>
