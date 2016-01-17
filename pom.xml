@@ -6,7 +6,7 @@
 	<parent>
 		<groupId>com.pte.liquid.relay</groupId>
 		<artifactId>liquid-parent</artifactId>
-		<version>0.0.3</version>
+		<version>0.0.4</version>
 	</parent>
 
 
@@ -113,7 +113,7 @@
 		<dependency>
 			<groupId>com.pte.liquid.relay</groupId>
 			<artifactId>RelayInterfaces</artifactId>
-			<version>0.1.8</version>
+			<version>0.1.11</version>
 		</dependency>
 
 		<!-- GSON -->
@@ -139,16 +139,14 @@
 		<dependency>
 			<groupId>org.jboss.logging</groupId>
 			<artifactId>jboss-logging</artifactId>
-			<version>3.3.0.Final</version>
+			<version>${jboss-logging.version}</version>
 		</dependency>
 	</dependencies>
-
-
+	
 	<distributionManagement>
 		<repository>
-			<id>pte-releases</id>
-			<name>internal releases</name>
-			<url>${releases-url}</url>
+			<id>bintray</id>
+			<url>https://api.bintray.com/maven/paultegelaar/maven/RelayApi</url>
 		</repository>
 		<snapshotRepository>
 			<id>pte-snapshots</id>
@@ -156,4 +154,13 @@
 			<url>${snapshots-url}</url>
 		</snapshotRepository>
 	</distributionManagement>
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<jboss-logging.version>3.3.0.Final</jboss-logging.version>
+	</properties>
+	<url>https://github.com/rjptegelaar/liquid-relay-api</url>
+	<name>RelayApi</name>
+	<issueManagement>
+		<url>https://github.com/rjptegelaar/liquid-relay-api/issues</url>
+	</issueManagement>
 </project>
