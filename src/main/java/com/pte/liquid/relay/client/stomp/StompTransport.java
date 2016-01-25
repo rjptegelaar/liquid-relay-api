@@ -18,7 +18,6 @@ import java.net.URISyntaxException;
 import java.util.Properties;
 import java.util.concurrent.TimeoutException;
 
-import org.apache.log4j.Logger;
 import org.projectodd.stilts.stomp.StompException;
 import org.projectodd.stilts.stomp.StompMessages;
 import org.projectodd.stilts.stomp.client.StompClient;
@@ -37,7 +36,6 @@ public class StompTransport implements Transport {
 	
 	
 	private Marshaller marshaller;
-	private final static Logger logger = Logger.getLogger(StompTransport.class);
 	private String hostname = "localhost";
 	private int port = 33555;
 	private String destination = "com.pte.liquid.relay.in";
@@ -50,7 +48,6 @@ public class StompTransport implements Transport {
 	@Override
 	@Async
 	public synchronized void send(Message msg) throws RelayException {
-		logger.debug("Getting trigger to send");
 		final String Stringcontent = marshaller.marshal(msg);
 		try {
 			if (client == null) {
@@ -61,23 +58,16 @@ public class StompTransport implements Transport {
 					+ destination, Stringcontent));
 			client.disconnect();
 		} catch (IOException e) {
-			logger.debug(e.getMessage());
 			throw new RelayException(e);
 		} catch (URISyntaxException e) {
-			logger.debug(e.getMessage());
 			throw new RelayException(e);
 		} catch (InterruptedException e) {
-			logger.debug(e.getMessage());
 			throw new RelayException(e);
 		} catch (TimeoutException e) {
-			logger.debug(e.getMessage());
 			throw new RelayException(e);
 		} catch (StompException e) {
-			logger.debug(e.getMessage());
 			throw new RelayException(e);
 		}
-
-		logger.debug("Done sending");
 
 	}
 
@@ -132,14 +122,11 @@ public class StompTransport implements Transport {
 
 	@Override
 	public void destroy() {
-		logger.info("Destroying Stomp transport");		
 		if(client!=null){
 			try {
 				client.disconnect();
 			} catch (Exception e) {
-				if(logger.isDebugEnabled()){
-					e.printStackTrace();	
-				}				
+				//Ignore all errors
 			}
 		}
 		

@@ -18,7 +18,6 @@ import java.util.Properties;
 import javax.jms.JMSException;
 import javax.jms.Session;
 
-import org.apache.log4j.Logger;
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.jms.core.MessageCreator;
 import org.springframework.scheduling.annotation.Async;
@@ -34,14 +33,12 @@ public class JmsTransport implements Transport {
 	private static final String RELAY_DESTINATION = "relay_destination";
 	private JmsTemplate template;	
 	private Marshaller marshaller;
-	private final static Logger logger = Logger.getLogger(JmsTransport.class);
 	private String destination;
 	
 	
 	@Override
 	@Async
-	public synchronized void send(Message msg) throws RelayException{
-		logger.debug("Getting trigger to send");										
+	public synchronized void send(Message msg) throws RelayException{										
 		final String Stringcontent = marshaller.marshal(msg);
 		
 		
@@ -59,7 +56,6 @@ public class JmsTransport implements Transport {
 	          });				
 		}
 		
-		logger.debug("Done sending");
 	}
 
 	public JmsTemplate getTemplate() {
@@ -88,7 +84,7 @@ public class JmsTransport implements Transport {
 
 	@Override
 	public void destroy() {
-		logger.info("Destroying JMS transport");				
+
 	}
 
 
