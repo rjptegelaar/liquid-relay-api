@@ -58,14 +58,19 @@ public class StompTransport implements Transport {
 					+ destination, Stringcontent));
 			client.disconnect();
 		} catch (IOException e) {
+			this.destroy();
 			throw new RelayException(e);
 		} catch (URISyntaxException e) {
+			this.destroy();
 			throw new RelayException(e);
 		} catch (InterruptedException e) {
+			this.destroy();
 			throw new RelayException(e);
 		} catch (TimeoutException e) {
+			this.destroy();
 			throw new RelayException(e);
 		} catch (StompException e) {
+			this.destroy();
 			throw new RelayException(e);
 		}
 
@@ -125,6 +130,7 @@ public class StompTransport implements Transport {
 		if(client!=null){
 			try {
 				client.disconnect();
+				client=null;
 			} catch (Exception e) {
 				//Ignore all errors
 			}
