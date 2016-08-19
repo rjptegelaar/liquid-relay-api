@@ -60,16 +60,8 @@
 			<artifactId>spring-context</artifactId>
 			<scope>provided</scope>
 		</dependency>
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-jms</artifactId>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-oxm</artifactId>
-			<scope>provided</scope>
-		</dependency>
+		
+		
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-test</artifactId>
@@ -77,30 +69,7 @@
 		</dependency>
 
 
-		<!-- APACHE -->
-		<dependency>
-			<groupId>org.apache.activemq</groupId>
-			<artifactId>activemq-all</artifactId>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.xbean</groupId>
-			<artifactId>xbean-spring</artifactId>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>commons-io</groupId>
-			<artifactId>commons-io</artifactId>
-			<scope>provided</scope>
-		</dependency>
 
-
-		<!-- LOG4J -->
-		<dependency>
-			<groupId>log4j</groupId>
-			<artifactId>log4j</artifactId>
-			<scope>provided</scope>
-		</dependency>
 
 		<!-- JUNIT -->
 		<dependency>
@@ -122,25 +91,13 @@
 			<artifactId>gson</artifactId>
 		</dependency>
 
+		<!-- STOMP -->
+		<dependency>
+		  <groupId>net.ser1</groupId>
+		  <artifactId>gozirra-client</artifactId>
+		  <version>0.4.1</version>
+		</dependency>
 
-		<!-- STILTS -->
-		<dependency>
-			<groupId>org.projectodd.stilts</groupId>
-			<artifactId>stilts-stomp-client</artifactId>
-			<exclusions>
-				<exclusion>
-					<artifactId>jboss-logging</artifactId>
-					<groupId>org.jboss.logging</groupId>
-				</exclusion>
-			</exclusions>
-		</dependency>
-		
-		<!-- JBOSS -->
-		<dependency>
-			<groupId>org.jboss.logging</groupId>
-			<artifactId>jboss-logging</artifactId>
-			<version>${jboss-logging.version}</version>
-		</dependency>
 	</dependencies>
 	
 	<distributionManagement>

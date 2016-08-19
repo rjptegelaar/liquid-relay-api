@@ -14,13 +14,12 @@
 package com.pte.liquid.relay.client.stomp;
 
 import java.io.IOException;
-import java.net.URISyntaxException;
 import java.util.Properties;
-import java.util.concurrent.TimeoutException;
 
-import org.projectodd.stilts.stomp.StompException;
-import org.projectodd.stilts.stomp.StompMessages;
-import org.projectodd.stilts.stomp.client.StompClient;
+import javax.security.auth.login.LoginException;
+
+import net.ser1.stomp.Client;
+
 import org.springframework.scheduling.annotation.Async;
 
 import com.pte.liquid.relay.Marshaller;
@@ -39,7 +38,7 @@ public class StompTransport implements Transport {
 	private String hostname = "localhost";
 	private int port = 33555;
 	private String destination = "com.pte.liquid.relay.in";
-	private StompClient client;
+	private Client client;
 	
 
 	public StompTransport() {
@@ -48,28 +47,16 @@ public class StompTransport implements Transport {
 	@Override
 	@Async
 	public synchronized void send(Message msg) throws RelayException {
-		final String Stringcontent = marshaller.marshal(msg);
+		final String stringContent = marshaller.marshal(msg);
 		try {
-			if (client == null) {
-				client = new StompClient("stomp://" + hostname + ":" + port);
-			}
-			client.connect();
-			client.send(StompMessages.createStompMessage("/queue/"
-					+ destination, Stringcontent));
-			client.disconnect();
+			if (client == null || client.isClosed()) {
+				client = new Client(hostname, port, "", "");
+			}			
+			client.send("/queue/"+ destination, stringContent);			
 		} catch (IOException e) {
 			this.destroy();
 			throw new RelayException(e);
-		} catch (URISyntaxException e) {
-			this.destroy();
-			throw new RelayException(e);
-		} catch (InterruptedException e) {
-			this.destroy();
-			throw new RelayException(e);
-		} catch (TimeoutException e) {
-			this.destroy();
-			throw new RelayException(e);
-		} catch (StompException e) {
+		} catch (LoginException e) {
 			this.destroy();
 			throw new RelayException(e);
 		}
@@ -129,6 +116,7 @@ public class StompTransport implements Transport {
 	public void destroy() {
 		if(client!=null){
 			try {
+				client.abort();
 				client.disconnect();
 				client=null;
 			} catch (Exception e) {
