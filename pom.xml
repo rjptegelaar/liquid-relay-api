@@ -81,7 +81,7 @@
 		<dependency>
 			<groupId>com.pte.liquid.relay</groupId>
 			<artifactId>RelayInterfaces</artifactId>
-			<version>0.1.13</version>
+			<version>0.1.14</version>
 		</dependency>
 
 		<!-- GSON -->
