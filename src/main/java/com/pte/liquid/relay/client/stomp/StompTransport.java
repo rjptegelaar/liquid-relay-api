@@ -14,7 +14,6 @@
 package com.pte.liquid.relay.client.stomp;
 
 import java.io.IOException;
-import java.util.Map;
 import java.util.Properties;
 
 import javax.security.auth.login.LoginException;
@@ -27,9 +26,8 @@ import com.pte.liquid.relay.exception.RelayException;
 import com.pte.liquid.relay.model.Message;
 
 import net.ser1.stomp.Client;
-import net.ser1.stomp.Listener;
 
-public class StompTransport implements Transport, Listener {
+public class StompTransport implements Transport {
 
 	private static final String RELAY_STOMP_PORT = "relay_stomp_port";
 	private static final String RELAY_STOMP_HOSTNAME = "relay_stomp_hostname";
@@ -54,8 +52,7 @@ public class StompTransport implements Transport, Listener {
 		
 		try {
 			if (client == null || client.isClosed()) {
-				client = new Client(hostname, port, "", "");	
-				client.addErrorListener(this);
+				client = new Client(hostname, port, "", "");					
 			}	
 			client.send("/queue/"+ destination, stringContent);		
 		} catch (IOException e) {
@@ -121,7 +118,6 @@ public class StompTransport implements Transport, Listener {
 	public void destroy() {	
 		if(client!=null){
 			try {
-				client.delErrorListener(this);
 				client.abort();
 				client.disconnect();
 				client=null;
@@ -130,12 +126,6 @@ public class StompTransport implements Transport, Listener {
 			}
 		}
 		
-	}
-
-	@Override
-	public void message(Map headers, String body) {
-		System.out.println(body);
-		this.destroy();
 	}
 
 }
