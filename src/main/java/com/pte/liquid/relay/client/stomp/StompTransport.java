@@ -134,6 +134,7 @@ public class StompTransport implements Transport, Listener {
 
 	@Override
 	public void message(Map headers, String body) {
+		System.out.println(body);
 		this.destroy();
 	}
 
