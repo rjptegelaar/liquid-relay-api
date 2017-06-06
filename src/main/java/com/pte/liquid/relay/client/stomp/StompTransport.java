@@ -14,11 +14,10 @@
 package com.pte.liquid.relay.client.stomp;
 
 import java.io.IOException;
+import java.util.Map;
 import java.util.Properties;
 
 import javax.security.auth.login.LoginException;
-
-import net.ser1.stomp.Client;
 
 import org.springframework.scheduling.annotation.Async;
 
@@ -27,7 +26,10 @@ import com.pte.liquid.relay.Transport;
 import com.pte.liquid.relay.exception.RelayException;
 import com.pte.liquid.relay.model.Message;
 
-public class StompTransport implements Transport {
+import net.ser1.stomp.Client;
+import net.ser1.stomp.Listener;
+
+public class StompTransport implements Transport, Listener {
 
 	private static final String RELAY_STOMP_PORT = "relay_stomp_port";
 	private static final String RELAY_STOMP_HOSTNAME = "relay_stomp_hostname";
@@ -38,21 +40,23 @@ public class StompTransport implements Transport {
 	private String hostname = "localhost";
 	private int port = 33555;
 	private String destination = "com.pte.liquid.relay.in";
-	private Client client;
+	private Client client;	
 	
 
-	public StompTransport() {
+	public StompTransport(){
+		
 	}
 
 	@Override
 	@Async
 	public synchronized void send(Message msg) throws RelayException {
 		final String stringContent = marshaller.marshal(msg);
+		
 		try {
 			if (client == null || client.isClosed()) {
-				client = new Client(hostname, port, "", "");
-			}			
-			client.send("/queue/"+ destination, stringContent);			
+				client = new Client(hostname, port, "", "");			
+			}	
+			client.send("/queue/"+ destination, stringContent);		
 		} catch (IOException e) {
 			this.destroy();
 			throw new RelayException(e);
@@ -113,7 +117,7 @@ public class StompTransport implements Transport {
 	}
 
 	@Override
-	public void destroy() {
+	public void destroy() {	
 		if(client!=null){
 			try {
 				client.abort();
@@ -124,6 +128,11 @@ public class StompTransport implements Transport {
 			}
 		}
 		
+	}
+
+	@Override
+	public void message(Map headers, String body) {
+		this.destroy();
 	}
 
 }

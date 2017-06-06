@@ -1,10 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+	xmlns:amq="http://activemq.apache.org/schema/core"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+						http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+						http://activemq.apache.org/schema/core
+                        http://activemq.apache.org/schema/core/activemq-core.xsd">
 		
-	<import resource="classpath:com/pte/liquid/relay/marshaller/json-application-context.xml"/>
-	<import resource="classpath:com/pte/liquid/relay/client/stomp-application-context.xml"/>
-				
 
+				
+	<amq:broker id="testBroker" useJmx="false" persistent="false" start="true" >
+		<amq:transportConnectors>
+				<amq:transportConnector
+				uri="stomp://localhost:33555?wireFormat.maxInactivityDuration=30000&amp;wireFormat.maxInactivityDurationInitalDelay=10000"
+				id="testStompConnector" />
+		</amq:transportConnectors>
+		
+	</amq:broker>
+	 
+		<import resource="classpath:com/pte/liquid/relay/marshaller/json-application-context.xml"/>
+	<import resource="classpath:com/pte/liquid/relay/client/stomp-application-context.xml"/>
 </beans>
