@@ -121,6 +121,7 @@ public class StompTransport implements Transport, Listener {
 	public void destroy() {	
 		if(client!=null){
 			try {
+				client.delErrorListener(this);
 				client.abort();
 				client.disconnect();
 				client=null;
