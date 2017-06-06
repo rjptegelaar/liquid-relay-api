@@ -54,7 +54,8 @@ public class StompTransport implements Transport, Listener {
 		
 		try {
 			if (client == null || client.isClosed()) {
-				client = new Client(hostname, port, "", "");			
+				client = new Client(hostname, port, "", "");	
+				client.addErrorListener(this);
 			}	
 			client.send("/queue/"+ destination, stringContent);		
 		} catch (IOException e) {
