@@ -22,6 +22,13 @@ import com.pte.liquid.relay.Marshaller;
 import com.pte.liquid.relay.exception.RelayException;
 import com.pte.liquid.relay.model.Message;
 
+/**
+ *	JSON marshaller, used to translate messages to and from JSON
+ *
+ *
+ * @author Paul Tegelaar
+ *
+ */
 public class JsonMarshaller implements Marshaller{
 
 	private final static Logger logger = Logger.getLogger(JsonMarshaller.class.getName());

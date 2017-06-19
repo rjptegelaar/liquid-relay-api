@@ -3,9 +3,9 @@
 	<artifactId>RelayApi</artifactId>
 	<version>1.0.2-SNAPSHOT</version>
 	<parent>
-		<groupId>com.pte.liquid.relay</groupId>
+		<groupId>nl.paultegelaar.liquid.relay</groupId>
 		<artifactId>liquid-parent</artifactId>
-		<version>1.0.0</version>
+		<version>1.0.1</version>
 	</parent>
 
 
@@ -109,9 +109,9 @@
 
 		<!-- LIQUID -->
 		<dependency>
-			<groupId>com.pte.liquid.relay</groupId>
+			<groupId>nl.paultegelaar.liquid.relay</groupId>
 			<artifactId>RelayInterfaces</artifactId>
-			<version>1.0.0</version>
+			<version>1.0.1</version>
 		</dependency>
 
 		<!-- GSON -->

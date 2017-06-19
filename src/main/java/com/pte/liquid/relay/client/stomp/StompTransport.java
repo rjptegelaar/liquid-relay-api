@@ -27,6 +27,12 @@ import com.pte.liquid.relay.model.Message;
 
 import net.ser1.stomp.Client;
 
+/**
+ * Stomp transport, used to transfer messages to a Stomp endpoint.
+ * 
+ * @author Paul Tegelaar
+ *
+ */
 public class StompTransport implements Transport {
 
 	private static final String RELAY_STOMP_PORT = "relay_stomp_port";
