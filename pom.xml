@@ -43,6 +43,23 @@
 					</dependency>
 				</dependencies>
 			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-gpg-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>sign-artifacts</id>
+						<phase>verify</phase>
+						<goals>
+							<goal>sign</goal>
+						</goals>
+						<configuration>						
+							<keyname>paultegelaar</keyname>
+							<passphrase>${gpg-passphrase}</passphrase>														
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>		
 		</plugins>
 	</build>
 
@@ -148,5 +165,21 @@
 	<name>RelayApi</name>
 	<issueManagement>
 		<url>https://github.com/rjptegelaar/liquid-relay-api/issues</url>
-	</issueManagement>
+	</issueManagement>	
+	<description>API for Liquid. API used for wiretapping traffic from an data integration platform.</description>
+	<licenses>
+		<license>
+			<name>The Apache License, Version 2.0</name>
+			<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+		</license>
+	</licenses>
+
+	<developers>
+		<developer>
+			<name>Paul Tegelaar</name>
+			<email>tegelaarpaul@gmail.com</email>
+			<organization>Paul Tegelaar</organization>
+			<organizationUrl>http://www.paultegelaar.nl</organizationUrl>
+		</developer>
+	</developers>
 </project>
