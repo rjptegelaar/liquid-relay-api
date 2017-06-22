@@ -14,7 +14,9 @@
 package com.pte.liquid.relay.client.stomp;
 
 import java.io.IOException;
+import java.util.Map;
 import java.util.Properties;
+import java.util.logging.Logger;
 
 import javax.security.auth.login.LoginException;
 
@@ -23,9 +25,11 @@ import org.springframework.scheduling.annotation.Async;
 import com.pte.liquid.relay.Marshaller;
 import com.pte.liquid.relay.Transport;
 import com.pte.liquid.relay.exception.RelayException;
+import com.pte.liquid.relay.marshaller.json.JsonMarshaller;
 import com.pte.liquid.relay.model.Message;
 
 import net.ser1.stomp.Client;
+import net.ser1.stomp.Listener;
 
 /**
  * Stomp transport, used to transfer messages to a Stomp endpoint.
@@ -33,8 +37,10 @@ import net.ser1.stomp.Client;
  * @author Paul Tegelaar
  *
  */
-public class StompTransport implements Transport {
+public class StompTransport implements Transport, Listener {
 
+	
+	private final static Logger logger = Logger.getLogger(StompTransport.class.getName());
 	private static final String RELAY_STOMP_PORT = "relay_stomp_port";
 	private static final String RELAY_STOMP_HOSTNAME = "relay_stomp_hostname";
 	private static final String RELAY_DESTINATION = "relay_destination";
@@ -45,6 +51,8 @@ public class StompTransport implements Transport {
 	private int port = 33555;
 	private String destination = "com.pte.liquid.relay.in";
 	private Client client;	
+	private boolean destroying = false;
+	
 	
 
 	public StompTransport(){
@@ -58,7 +66,9 @@ public class StompTransport implements Transport {
 		
 		try {
 			if (client == null || client.isClosed()) {
-				client = new Client(hostname, port, "", "");					
+				client = new Client(hostname, port, "", "");		
+				//Add self as error listener
+				client.addErrorListener(this);
 			}	
 			client.send("/queue/"+ destination, stringContent);		
 		} catch (IOException e) {
@@ -122,15 +132,39 @@ public class StompTransport implements Transport {
 
 	@Override
 	public void destroy() {	
-		if(client!=null){
-			try {
-				client.abort();
-				client.disconnect();
-				client=null;
-			} catch (Exception e) {
-				//Ignore all errors
+		//Only try to destroy if not already destroying
+		if(!destroying){
+			logger.warning("Destroying connection");
+			destroying = true;
+			
+			if(client!=null){
+				try {
+					client.abort();
+					client.disconnect();
+					client=null;
+				} catch (Exception e) {
+					//Ignore all errors
+				}
 			}
+			
+			destroying = false;
+			logger.warning("Connection destroyed");
 		}
+		
+		
+		
+		
+	}
+
+	
+	/**
+	 * Receives error messages. Print message and destroy client to force a reconnect.
+	 */
+	@Override
+	public void message(Map headers, String body) {
+		//Print error as warning
+		logger.warning(body);
+		this.destroy();
 		
 	}
 
